@@ -1,0 +1,73 @@
+<div class="table-container">
+  <div class="table-header">
+    <h2>المواعيد</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">إضافة موعد جديد</button>
+  </div>
+
+  <div class="form-modal" *ngIf="showForm">
+    <div class="form-content">
+      <h3>{{ editingAppointment ? 'تعديل موعد' : 'إضافة موعد جديد' }}</h3>
+      <form (ngSubmit)="saveAppointment()">
+        <div class="form-group">
+          <label>المسن:</label>
+          <select [(ngModel)]="appointmentForm.elderly_id" name="elderly_id" required>
+            <option value="0">اختر مسن</option>
+            <option *ngFor="let e of elderly" [value]="e.elderly_id">{{ e.full_name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>رقم الطبيب:</label>
+          <input type="number" [(ngModel)]="appointmentForm.doctor_id" name="doctor_id" required>
+        </div>
+        <div class="form-group">
+          <label>تاريخ ووقت الموعد:</label>
+          <input type="datetime-local" [(ngModel)]="appointmentForm.appointment_date" name="appointment_date" required>
+        </div>
+        <div class="form-group">
+          <label>الغرض:</label>
+          <input type="text" [(ngModel)]="appointmentForm.purpose" name="purpose" required>
+        </div>
+        <div class="form-group">
+          <label>ملاحظات:</label>
+          <textarea [(ngModel)]="appointmentForm.notes" name="notes" rows="3"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>المسن</th>
+          <th>رقم الطبيب</th>
+          <th>تاريخ الموعد</th>
+          <th>الغرض</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let appointment of appointments">
+          <td>{{ appointment.appointment_id }}</td>
+          <td>{{ getElderlyName(appointment.elderly_id) }}</td>
+          <td>{{ appointment.doctor_id }}</td>
+          <td>{{ appointment.appointment_date | date:'short' }}</td>
+          <td>{{ appointment.purpose }}</td>
+          <td>
+            <button class="btn btn-edit" (click)="openEditForm(appointment)">تعديل</button>
+            <button class="btn btn-delete" (click)="deleteAppointment(appointment.appointment_id!)">حذف</button>
+          </td>
+        </tr>
+        <tr *ngIf="appointments.length === 0">
+          <td colspan="6" class="no-data">لا توجد بيانات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

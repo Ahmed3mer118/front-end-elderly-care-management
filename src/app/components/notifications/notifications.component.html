@@ -1,0 +1,82 @@
+<div class="table-container">
+  <div class="table-header">
+    <h2>الإشعارات</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">إضافة إشعار جديد</button>
+  </div>
+
+  <div class="form-modal" *ngIf="showForm">
+    <div class="form-content">
+      <h3>{{ editingNotification ? 'تعديل إشعار' : 'إضافة إشعار جديد' }}</h3>
+      <form (ngSubmit)="saveNotification()">
+        <div class="form-group">
+          <label>المسن:</label>
+          <select [(ngModel)]="notificationForm.elderly_id" name="elderly_id" required>
+            <option value="0">اختر مسن</option>
+            <option *ngFor="let e of elderly" [value]="e.elderly_id">{{ e.full_name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>النوع:</label>
+          <select [(ngModel)]="notificationForm.type" name="type" required>
+            <option value="alert">تنبيه</option>
+            <option value="reminder">تذكير</option>
+            <option value="info">معلومة</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>الرسالة:</label>
+          <textarea [(ngModel)]="notificationForm.message" name="message" rows="4" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>الحالة:</label>
+          <select [(ngModel)]="notificationForm.status" name="status" required>
+            <option value="unread">غير مقروء</option>
+            <option value="read">مقروء</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>المسن</th>
+          <th>النوع</th>
+          <th>الرسالة</th>
+          <th>الحالة</th>
+          <th>تاريخ الإنشاء</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let notification of notifications">
+          <td>{{ notification.notification_id }}</td>
+          <td>{{ getElderlyName(notification.elderly_id) }}</td>
+          <td>{{ getTypeLabel(notification.type) }}</td>
+          <td>{{ notification.message }}</td>
+          <td>
+            <span [class]="'status-badge ' + notification.status">
+              {{ getStatusLabel(notification.status) }}
+            </span>
+          </td>
+          <td>{{ notification.created_at | date:'short' }}</td>
+          <td>
+            <button class="btn btn-edit" (click)="openEditForm(notification)">تعديل</button>
+            <button class="btn btn-delete" (click)="deleteNotification(notification.notification_id!)">حذف</button>
+          </td>
+        </tr>
+        <tr *ngIf="notifications.length === 0">
+          <td colspan="7" class="no-data">لا توجد بيانات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

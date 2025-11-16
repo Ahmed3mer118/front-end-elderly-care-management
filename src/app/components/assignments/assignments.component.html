@@ -1,0 +1,69 @@
+<div class="table-container">
+  <div class="table-header">
+    <h2>التعيينات</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">إضافة تعيين جديد</button>
+  </div>
+
+  <div class="form-modal" *ngIf="showForm">
+    <div class="form-content">
+      <h3>{{ editingAssignment ? 'تعديل تعيين' : 'إضافة تعيين جديد' }}</h3>
+      <form (ngSubmit)="saveAssignment()">
+        <div class="form-group">
+          <label>المسن:</label>
+          <select [(ngModel)]="assignmentForm.elderly_id" name="elderly_id" required>
+            <option value="0">اختر مسن</option>
+            <option *ngFor="let e of elderly" [value]="e.elderly_id">{{ e.full_name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>رقم الممرضة:</label>
+          <input type="number" [(ngModel)]="assignmentForm.nurse_id" name="nurse_id" required>
+        </div>
+        <div class="form-group">
+          <label>تاريخ البدء:</label>
+          <input type="date" [(ngModel)]="assignmentForm.start_date" name="start_date" required>
+        </div>
+        <div class="form-group">
+          <label>تاريخ الانتهاء:</label>
+          <input type="date" [(ngModel)]="assignmentForm.end_date" name="end_date">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>المسن</th>
+          <th>رقم الممرضة</th>
+          <th>تاريخ البدء</th>
+          <th>تاريخ الانتهاء</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let assignment of assignments">
+          <td>{{ assignment.assignment_id }}</td>
+          <td>{{ getElderlyName(assignment.elderly_id) }}</td>
+          <td>{{ assignment.nurse_id }}</td>
+          <td>{{ assignment.start_date | date:'short' }}</td>
+          <td>{{ assignment.end_date ? (assignment.end_date | date:'short') : 'مستمر' }}</td>
+          <td>
+            <button class="btn btn-edit" (click)="openEditForm(assignment)">تعديل</button>
+            <button class="btn btn-delete" (click)="deleteAssignment(assignment.assignment_id!)">حذف</button>
+          </td>
+        </tr>
+        <tr *ngIf="assignments.length === 0">
+          <td colspan="6" class="no-data">لا توجد بيانات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

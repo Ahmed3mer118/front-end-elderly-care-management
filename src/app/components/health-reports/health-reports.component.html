@@ -1,0 +1,85 @@
+<div class="table-container">
+  <div class="table-header">
+    <h2>التقارير الصحية</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">إضافة تقرير جديد</button>
+  </div>
+
+  <div class="form-modal" *ngIf="showForm">
+    <div class="form-content">
+      <h3>{{ editingReport ? 'تعديل تقرير' : 'إضافة تقرير جديد' }}</h3>
+      <form (ngSubmit)="saveReport()">
+        <div class="form-group">
+          <label>المسن:</label>
+          <select [(ngModel)]="reportForm.elderly_id" name="elderly_id" required>
+            <option value="0">اختر مسن</option>
+            <option *ngFor="let e of elderly" [value]="e.elderly_id">{{ e.full_name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>تاريخ التقرير:</label>
+          <input type="date" [(ngModel)]="reportForm.report_date" name="report_date" required>
+        </div>
+        <div class="form-group">
+          <label>ضغط الدم:</label>
+          <input type="text" [(ngModel)]="reportForm.blood_pressure" name="blood_pressure" placeholder="مثال: 120/80" required>
+        </div>
+        <div class="form-group">
+          <label>معدل النبض:</label>
+          <input type="number" [(ngModel)]="reportForm.heart_rate" name="heart_rate" required>
+        </div>
+        <div class="form-group">
+          <label>مستوى السكر:</label>
+          <input type="number" step="0.01" [(ngModel)]="reportForm.sugar_level" name="sugar_level" required>
+        </div>
+        <div class="form-group">
+          <label>الوزن (كجم):</label>
+          <input type="number" step="0.01" [(ngModel)]="reportForm.weight" name="weight" required>
+        </div>
+        <div class="form-group">
+          <label>ملاحظات:</label>
+          <textarea [(ngModel)]="reportForm.notes" name="notes" rows="3"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>المسن</th>
+          <th>تاريخ التقرير</th>
+          <th>ضغط الدم</th>
+          <th>معدل النبض</th>
+          <th>مستوى السكر</th>
+          <th>الوزن</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let report of reports">
+          <td>{{ report.report_id }}</td>
+          <td>{{ getElderlyName(report.elderly_id) }}</td>
+          <td>{{ report.report_date | date:'short' }}</td>
+          <td>{{ report.blood_pressure }}</td>
+          <td>{{ report.heart_rate }}</td>
+          <td>{{ report.sugar_level }}</td>
+          <td>{{ report.weight }} كجم</td>
+          <td>
+            <button class="btn btn-edit" (click)="openEditForm(report)">تعديل</button>
+            <button class="btn btn-delete" (click)="deleteReport(report.report_id!)">حذف</button>
+          </td>
+        </tr>
+        <tr *ngIf="reports.length === 0">
+          <td colspan="8" class="no-data">لا توجد بيانات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

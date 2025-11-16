@@ -1,0 +1,85 @@
+<div class="table-container">
+  <div class="table-header">
+    <h2>الأدوية</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">إضافة دواء جديد</button>
+  </div>
+
+  <div class="form-modal" *ngIf="showForm">
+    <div class="form-content">
+      <h3>{{ editingMedication ? 'تعديل دواء' : 'إضافة دواء جديد' }}</h3>
+      <form (ngSubmit)="saveMedication()">
+        <div class="form-group">
+          <label>المسن:</label>
+          <select [(ngModel)]="medicationForm.elderly_id" name="elderly_id" required>
+            <option value="0">اختر مسن</option>
+            <option *ngFor="let e of elderly" [value]="e.elderly_id">{{ e.full_name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>اسم الدواء:</label>
+          <input type="text" [(ngModel)]="medicationForm.medicine_name" name="medicine_name" required>
+        </div>
+        <div class="form-group">
+          <label>الجرعة:</label>
+          <input type="text" [(ngModel)]="medicationForm.dosage" name="dosage" required>
+        </div>
+        <div class="form-group">
+          <label>التكرار:</label>
+          <select [(ngModel)]="medicationForm.frequency" name="frequency" required>
+            <option value="once">مرة واحدة</option>
+            <option value="twice">مرتين</option>
+            <option value="thrice">ثلاث مرات</option>
+            <option value="four_times">أربع مرات</option>
+            <option value="as_needed">حسب الحاجة</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>تاريخ البدء:</label>
+          <input type="date" [(ngModel)]="medicationForm.start_date" name="start_date" required>
+        </div>
+        <div class="form-group">
+          <label>تاريخ الانتهاء:</label>
+          <input type="date" [(ngModel)]="medicationForm.end_date" name="end_date">
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">حفظ</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>المسن</th>
+          <th>اسم الدواء</th>
+          <th>الجرعة</th>
+          <th>التكرار</th>
+          <th>تاريخ البدء</th>
+          <th>الإجراءات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let medication of medications">
+          <td>{{ medication.medication_id }}</td>
+          <td>{{ getElderlyName(medication.elderly_id) }}</td>
+          <td>{{ medication.medicine_name }}</td>
+          <td>{{ medication.dosage }}</td>
+          <td>{{ getFrequencyLabel(medication.frequency) }}</td>
+          <td>{{ medication.start_date | date:'short' }}</td>
+          <td>
+            <button class="btn btn-edit" (click)="openEditForm(medication)">تعديل</button>
+            <button class="btn btn-delete" (click)="deleteMedication(medication.medication_id!)">حذف</button>
+          </td>
+        </tr>
+        <tr *ngIf="medications.length === 0">
+          <td colspan="7" class="no-data">لا توجد بيانات</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
