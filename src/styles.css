@@ -7,8 +7,10 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  direction: rtl;
-  text-align: right;
+  direction: ltr;
+  text-align: left;
+  background-color: #f4f6fb;
+  color: #1f2933;
 }
 
 html, body {

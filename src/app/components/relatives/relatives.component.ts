@@ -74,7 +74,7 @@ export class RelativesComponent implements OnInit {
     console.log('Current relativeForm:', this.relativeForm);
     
     if (!this.relativeForm.elderly_id || this.relativeForm.elderly_id === 0 || !this.relativeForm.full_name || !this.relativeForm.relation || !this.relativeForm.phone || !this.relativeForm.email) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
@@ -97,7 +97,7 @@ export class RelativesComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating relative:', err);
-          alert('حدث خطأ أثناء تحديث القريب: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the relative: ' + (err.error?.message || err.message));
         }
       });
     } else {
@@ -109,14 +109,14 @@ export class RelativesComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating relative:', err);
-          alert('حدث خطأ أثناء إنشاء القريب: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the relative: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteRelative(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا القريب؟')) {
+    if (confirm('Are you sure you want to delete this relative?')) {
       this.relativeService.delete(id).subscribe({
         next: () => this.loadRelatives(),
         error: (err) => console.error('Error deleting relative:', err)
@@ -131,7 +131,7 @@ export class RelativesComponent implements OnInit {
 
   getElderlyName(id: number): string {
     const e = this.elderly.find(el => el.elderly_id === id);
-    return e ? e.full_name : 'غير معروف';
+    return e ? e.full_name : 'Unknown';
   }
 }
 

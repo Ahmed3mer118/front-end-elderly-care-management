@@ -1,39 +1,41 @@
 <div class="table-container">
   <div class="table-header">
-    <h2>المستخدمون</h2>
-    <button class="btn btn-primary" (click)="openAddForm()">إضافة مستخدم جديد</button>
+    <h2>Users</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">Add New User</button>
   </div>
 
   <div class="form-modal" *ngIf="showForm">
     <div class="form-content">
-      <h3>{{ editingUser ? 'تعديل مستخدم' : 'إضافة مستخدم جديد' }}</h3>
+      <h3>{{ editingUser ? 'Edit User' : 'Add New User' }}</h3>
       <form #userFormRef="ngForm" (ngSubmit)="saveUser()">
         <div class="form-group">
-          <label>اسم المستخدم:</label>
+          <label>Username</label>
           <input type="text" [(ngModel)]="userForm.username" name="username" required #username="ngModel">
-          <div *ngIf="username.invalid && username.touched" class="error-message">اسم المستخدم مطلوب</div>
+          <div *ngIf="username.invalid && username.touched" class="error-message">Username is required</div>
         </div>
         <div class="form-group">
-          <label>البريد الإلكتروني:</label>
+          <label>Email</label>
           <input type="email" [(ngModel)]="userForm.email" name="email" required #email="ngModel">
-          <div *ngIf="email.invalid && email.touched" class="error-message">البريد الإلكتروني مطلوب</div>
+          <div *ngIf="email.invalid && email.touched" class="error-message">Email is required</div>
         </div>
+        @if(!editingUser) {
         <div class="form-group">
-          <label>كلمة المرور:</label>
+          <label>Password</label>
           <input type="password" [(ngModel)]="userForm.password" name="password" [required]="!editingUser" #password="ngModel">
-          <div *ngIf="password.invalid && password.touched && !editingUser" class="error-message">كلمة المرور مطلوبة</div>
+          <div *ngIf="password.invalid && password.touched && !editingUser" class="error-message">Password is required</div>
         </div>
+        }
         <div class="form-group">
-          <label>الدور:</label>
+          <label>Role</label>
           <select [(ngModel)]="userForm.role" name="role" required #role="ngModel">
-            <option value="admin">مدير</option>
-            <option value="caregiver">مقدم رعاية</option>
-            <option value="family_member">عضو عائلة</option>
+            <option value="admin">Admin</option>
+            <option value="caregiver">Caregiver</option>
+            <option value="family">Family Member</option>
           </select>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary" [disabled]="userFormRef.invalid">حفظ</button>
-          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+          <button type="submit" class="btn btn-primary" [disabled]="userFormRef.invalid">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
         </div>
       </form>
     </div>
@@ -44,11 +46,11 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>اسم المستخدم</th>
-          <th>البريد الإلكتروني</th>
-          <th>الدور</th>
-          <th>تاريخ الإنشاء</th>
-          <th>الإجراءات</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created At</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -56,15 +58,15 @@
           <td>{{ user.user_id }}</td>
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.role }}</td>
+          <td>{{ getRoleLabel(user.role) }}</td>
           <td>{{ user.created_at | date:'short' }}</td>
           <td>
-            <button class="btn btn-edit" (click)="openEditForm(user)">تعديل</button>
-            <button class="btn btn-delete" (click)="deleteUser(user.user_id!)">حذف</button>
+            <button class="btn btn-edit" (click)="openEditForm(user)">Edit</button>
+            <button class="btn btn-delete" (click)="deleteUser(user.user_id!)">Delete</button>
           </td>
         </tr>
         <tr *ngIf="users.length === 0">
-          <td colspan="6" class="no-data">لا توجد بيانات</td>
+          <td colspan="6" class="no-data">No data available</td>
         </tr>
       </tbody>
     </table>

@@ -72,7 +72,7 @@ export class NotificationsComponent implements OnInit {
     console.log('Current notificationForm:', this.notificationForm);
     
     if (!this.notificationForm.elderly_id || this.notificationForm.elderly_id === 0 || !this.notificationForm.message) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
@@ -94,7 +94,7 @@ export class NotificationsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating notification:', err);
-          alert('حدث خطأ أثناء تحديث الإشعار: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the notification: ' + (err.error?.message || err.message));
         }
       });
     } else {
@@ -106,14 +106,14 @@ export class NotificationsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating notification:', err);
-          alert('حدث خطأ أثناء إنشاء الإشعار: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the notification: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteNotification(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا الإشعار؟')) {
+    if (confirm('Are you sure you want to delete this notification?')) {
       this.notificationService.delete(id).subscribe({
         next: () => this.loadNotifications(),
         error: (err) => console.error('Error deleting notification:', err)
@@ -128,20 +128,20 @@ export class NotificationsComponent implements OnInit {
 
   getElderlyName(id: number): string {
     const e = this.elderly.find(el => el.elderly_id === id);
-    return e ? e.full_name : 'غير معروف';
+    return e ? e.full_name : 'Unknown';
   }
 
   getTypeLabel(type: string): string {
     const labels: { [key: string]: string } = {
-      'alert': 'تنبيه',
-      'reminder': 'تذكير',
-      'info': 'معلومة'
+      'alert': 'Alert',
+      'reminder': 'Reminder',
+      'info': 'Info'
     };
     return labels[type] || type;
   }
 
   getStatusLabel(status: string): string {
-    return status === 'read' ? 'مقروء' : 'غير مقروء';
+    return status === 'read' ? 'Read' : 'Unread';
   }
 }
 

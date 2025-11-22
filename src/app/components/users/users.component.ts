@@ -12,6 +12,11 @@ export class UsersComponent implements OnInit {
   users: User[] = [];
   showForm = false;
   editingUser: User | null = null;
+  readonly roleLabels: Record<string, string> = {
+    admin: 'Admin',
+    caregiver: 'Caregiver',
+    family_member: 'Family Member'
+  };
   userForm: User = {
     username: '',
     email: '',
@@ -51,9 +56,9 @@ export class UsersComponent implements OnInit {
 
   saveUser() {
     console.log('Current userForm:', this.userForm);
-    // التحقق من صحة البيانات
+    // Validate form data
     if (!this.userForm.username || !this.userForm.email) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
@@ -64,7 +69,7 @@ export class UsersComponent implements OnInit {
       password: this.userForm.password ? this.userForm.password.trim() : undefined
     };
 
-    // إزالة password إذا كان undefined لتجنب إرسالها فارغة
+    // Remove password if it's undefined to avoid sending empty values
     if (!userData.password) {
       delete (userData as any).password;
     }
@@ -80,12 +85,12 @@ export class UsersComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating user:', err);
-          alert('حدث خطأ أثناء تحديث المستخدم: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the user: ' + (err.error?.message || err.message));
         }
       });
     } else {
       if (!userData.password) {
-        alert('كلمة المرور مطلوبة للمستخدمين الجدد');
+        alert('Password is required for new users');
         return;
       }
       this.userService.create(userData).subscribe({
@@ -96,14 +101,14 @@ export class UsersComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating user:', err);
-          alert('حدث خطأ أثناء إنشاء المستخدم: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the user: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteUser(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
+    if (confirm('Are you sure you want to delete this user?')) {
       this.userService.delete(id).subscribe({
         next: () => this.loadUsers(),
         error: (err) => console.error('Error deleting user:', err)
@@ -114,6 +119,10 @@ export class UsersComponent implements OnInit {
   cancel() {
     this.showForm = false;
     this.editingUser = null;
+  }
+
+  getRoleLabel(role: string): string {
+    return this.roleLabels[role] || role;
   }
 }
 

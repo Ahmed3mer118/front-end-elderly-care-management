@@ -78,7 +78,7 @@ export class HealthReportsComponent implements OnInit {
     console.log('Current reportForm:', this.reportForm);
     
     if (!this.reportForm.elderly_id || this.reportForm.elderly_id === 0 || !this.reportForm.report_date || !this.reportForm.blood_pressure) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
@@ -103,7 +103,7 @@ export class HealthReportsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating health report:', err);
-          alert('حدث خطأ أثناء تحديث التقرير: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the report: ' + (err.error?.message || err.message));
         }
       });
     } else {
@@ -115,14 +115,14 @@ export class HealthReportsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating health report:', err);
-          alert('حدث خطأ أثناء إنشاء التقرير: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the report: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteReport(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا التقرير؟')) {
+    if (confirm('Are you sure you want to delete this report?')) {
       this.healthReportService.delete(id).subscribe({
         next: () => this.loadReports(),
         error: (err) => console.error('Error deleting health report:', err)
@@ -137,7 +137,7 @@ export class HealthReportsComponent implements OnInit {
 
   getElderlyName(id: number): string {
     const e = this.elderly.find(el => el.elderly_id === id);
-    return e ? e.full_name : 'غير معروف';
+    return e ? e.full_name : 'Unknown';
   }
 }
 

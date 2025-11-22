@@ -80,13 +80,13 @@ export class ElderlyComponent implements OnInit {
   saveElderly() {
     console.log('Current elderlyForm:', this.elderlyForm);
     
-    // التحقق من صحة البيانات
+    // Validate required fields
     if (!this.elderlyForm.full_name || !this.elderlyForm.birth_date || !this.elderlyForm.users_user_id || this.elderlyForm.users_user_id === 0) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
-    // إنشاء نسخة من البيانات مع تنظيفها
+    // Create a clean copy of the payload
     const elderlyData: Elderly = {
       full_name: this.elderlyForm.full_name.trim(),
       birth_date: this.elderlyForm.birth_date,
@@ -109,7 +109,7 @@ export class ElderlyComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating elderly:', err);
-          alert('حدث خطأ أثناء تحديث المسن: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the elder: ' + (err.error?.message || err.message));
         }
       });
     } else {
@@ -121,14 +121,14 @@ export class ElderlyComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating elderly:', err);
-          alert('حدث خطأ أثناء إنشاء المسن: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the elder: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteElderly(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا المسن؟')) {
+    if (confirm('Are you sure you want to delete this elder?')) {
       this.elderlyService.delete(id).subscribe({
         next: () => this.loadElderly(),
         error: (err) => console.error('Error deleting elderly:', err)

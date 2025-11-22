@@ -1,49 +1,49 @@
 <div class="table-container">
   <div class="table-header">
-    <h2>الأدوية</h2>
-    <button class="btn btn-primary" (click)="openAddForm()">إضافة دواء جديد</button>
+    <h2>Medications</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">Add New Medication</button>
   </div>
 
   <div class="form-modal" *ngIf="showForm">
     <div class="form-content">
-      <h3>{{ editingMedication ? 'تعديل دواء' : 'إضافة دواء جديد' }}</h3>
+      <h3>{{ editingMedication ? 'Edit Medication' : 'Add New Medication' }}</h3>
       <form (ngSubmit)="saveMedication()">
         <div class="form-group">
-          <label>المسن:</label>
+          <label>Elderly Person</label>
           <select [(ngModel)]="medicationForm.elderly_id" name="elderly_id" required>
-            <option value="0">اختر مسن</option>
+            <option value="0">Select Elderly Person</option>
             <option *ngFor="let e of elderly" [value]="e.elderly_id">{{ e.full_name }}</option>
           </select>
         </div>
         <div class="form-group">
-          <label>اسم الدواء:</label>
+          <label>Medicine Name</label>
           <input type="text" [(ngModel)]="medicationForm.medicine_name" name="medicine_name" required>
         </div>
         <div class="form-group">
-          <label>الجرعة:</label>
+          <label>Dosage</label>
           <input type="text" [(ngModel)]="medicationForm.dosage" name="dosage" required>
         </div>
         <div class="form-group">
-          <label>التكرار:</label>
+          <label>Frequency</label>
           <select [(ngModel)]="medicationForm.frequency" name="frequency" required>
-            <option value="once">مرة واحدة</option>
-            <option value="twice">مرتين</option>
-            <option value="thrice">ثلاث مرات</option>
-            <option value="four_times">أربع مرات</option>
-            <option value="as_needed">حسب الحاجة</option>
+            <option value="once_daily">Once daily</option>
+            <option value="twice_daily">Twice daily</option>
+            <option value="thrice_daily">Three times a day</option>
+            <option value="four_times_daily">Four times a day</option>
+            <option value="as_needed">As needed</option>
           </select>
         </div>
         <div class="form-group">
-          <label>تاريخ البدء:</label>
+          <label>Start Date</label>
           <input type="date" [(ngModel)]="medicationForm.start_date" name="start_date" required>
         </div>
         <div class="form-group">
-          <label>تاريخ الانتهاء:</label>
+          <label>End Date</label>
           <input type="date" [(ngModel)]="medicationForm.end_date" name="end_date">
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">حفظ</button>
-          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
         </div>
       </form>
     </div>
@@ -54,12 +54,12 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>المسن</th>
-          <th>اسم الدواء</th>
-          <th>الجرعة</th>
-          <th>التكرار</th>
-          <th>تاريخ البدء</th>
-          <th>الإجراءات</th>
+          <th>Elderly Person</th>
+          <th>Medicine Name</th>
+          <th>Dosage</th>
+          <th>Frequency</th>
+          <th>Start Date</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -71,12 +71,12 @@
           <td>{{ getFrequencyLabel(medication.frequency) }}</td>
           <td>{{ medication.start_date | date:'short' }}</td>
           <td>
-            <button class="btn btn-edit" (click)="openEditForm(medication)">تعديل</button>
-            <button class="btn btn-delete" (click)="deleteMedication(medication.medication_id!)">حذف</button>
+            <button class="btn btn-edit" (click)="openEditForm(medication)">Edit</button>
+            <button class="btn btn-delete" (click)="deleteMedication(medication.medication_id!)">Delete</button>
           </td>
         </tr>
         <tr *ngIf="medications.length === 0">
-          <td colspan="7" class="no-data">لا توجد بيانات</td>
+          <td colspan="7" class="no-data">No data available</td>
         </tr>
       </tbody>
     </table>

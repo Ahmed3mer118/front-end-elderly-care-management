@@ -76,7 +76,7 @@ export class MedicationsComponent implements OnInit {
     console.log('Current medicationForm:', this.medicationForm);
     
     if (!this.medicationForm.elderly_id || this.medicationForm.elderly_id === 0 || !this.medicationForm.medicine_name || !this.medicationForm.dosage || !this.medicationForm.start_date) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
@@ -100,7 +100,7 @@ export class MedicationsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating medication:', err);
-          alert('حدث خطأ أثناء تحديث الدواء: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the medication: ' + (err.error?.message || err.message));
         }
       });
     } else {
@@ -112,14 +112,14 @@ export class MedicationsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating medication:', err);
-          alert('حدث خطأ أثناء إنشاء الدواء: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the medication: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteMedication(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا الدواء؟')) {
+    if (confirm('Are you sure you want to delete this medication?')) {
       this.medicationService.delete(id).subscribe({
         next: () => this.loadMedications(),
         error: (err) => console.error('Error deleting medication:', err)
@@ -134,16 +134,16 @@ export class MedicationsComponent implements OnInit {
 
   getElderlyName(id: number): string {
     const e = this.elderly.find(el => el.elderly_id === id);
-    return e ? e.full_name : 'غير معروف';
+    return e ? e.full_name : 'Unknown';
   }
 
   getFrequencyLabel(freq: string): string {
     const labels: { [key: string]: string } = {
-      'once': 'مرة واحدة',
-      'twice': 'مرتين',
-      'thrice': 'ثلاث مرات',
-      'four_times': 'أربع مرات',
-      'as_needed': 'حسب الحاجة'
+      'once_daily': 'Once daily',
+      'twice_daily': 'Twice daily',
+      'thrice_daily': 'Three times a day',
+      'four_times_daily': 'Four times a day',
+      'as_needed': 'As needed'
     };
     return labels[freq] || freq;
   }

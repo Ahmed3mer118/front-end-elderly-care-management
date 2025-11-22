@@ -72,7 +72,7 @@ export class AssignmentsComponent implements OnInit {
     console.log('Current assignmentForm:', this.assignmentForm);
     
     if (!this.assignmentForm.elderly_id || this.assignmentForm.elderly_id === 0 || !this.assignmentForm.nurse_id || !this.assignmentForm.start_date) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
@@ -94,7 +94,7 @@ export class AssignmentsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating assignment:', err);
-          alert('حدث خطأ أثناء تحديث التعيين: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the assignment: ' + (err.error?.message || err.message));
         }
       });
     } else {
@@ -106,14 +106,14 @@ export class AssignmentsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating assignment:', err);
-          alert('حدث خطأ أثناء إنشاء التعيين: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the assignment: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteAssignment(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا التعيين؟')) {
+    if (confirm('Are you sure you want to delete this assignment?')) {
       this.assignmentService.delete(id).subscribe({
         next: () => this.loadAssignments(),
         error: (err) => console.error('Error deleting assignment:', err)
@@ -128,7 +128,7 @@ export class AssignmentsComponent implements OnInit {
 
   getElderlyName(id: number): string {
     const e = this.elderly.find(el => el.elderly_id === id);
-    return e ? e.full_name : 'غير معروف';
+    return e ? e.full_name : 'Unknown';
   }
 }
 

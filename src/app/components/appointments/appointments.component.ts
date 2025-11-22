@@ -74,7 +74,7 @@ export class AppointmentsComponent implements OnInit {
     console.log('Current appointmentForm:', this.appointmentForm);
     
     if (!this.appointmentForm.elderly_id || this.appointmentForm.elderly_id === 0 || !this.appointmentForm.appointment_date || !this.appointmentForm.purpose) {
-      alert('يرجى ملء جميع الحقول المطلوبة');
+      alert('Please fill out all required fields');
       return;
     }
 
@@ -97,7 +97,7 @@ export class AppointmentsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error updating appointment:', err);
-          alert('حدث خطأ أثناء تحديث الموعد: ' + (err.error?.message || err.message));
+          alert('An error occurred while updating the appointment: ' + (err.error?.message || err.message));
         }
       });
     } else {
@@ -109,14 +109,14 @@ export class AppointmentsComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error creating appointment:', err);
-          alert('حدث خطأ أثناء إنشاء الموعد: ' + (err.error?.message || err.message));
+          alert('An error occurred while creating the appointment: ' + (err.error?.message || err.message));
         }
       });
     }
   }
 
   deleteAppointment(id: number) {
-    if (confirm('هل أنت متأكد من حذف هذا الموعد؟')) {
+    if (confirm('Are you sure you want to delete this appointment?')) {
       this.appointmentService.delete(id).subscribe({
         next: () => this.loadAppointments(),
         error: (err) => console.error('Error deleting appointment:', err)
@@ -131,7 +131,7 @@ export class AppointmentsComponent implements OnInit {
 
   getElderlyName(id: number): string {
     const e = this.elderly.find(el => el.elderly_id === id);
-    return e ? e.full_name : 'غير معروف';
+    return e ? e.full_name : 'Unknown';
   }
 }
 

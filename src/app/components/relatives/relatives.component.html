@@ -1,39 +1,39 @@
 <div class="table-container">
   <div class="table-header">
-    <h2>الأقارب</h2>
-    <button class="btn btn-primary" (click)="openAddForm()">إضافة قريب جديد</button>
+    <h2>Relatives</h2>
+    <button class="btn btn-primary" (click)="openAddForm()">Add New Relative</button>
   </div>
 
   <div class="form-modal" *ngIf="showForm">
     <div class="form-content">
-      <h3>{{ editingRelative ? 'تعديل قريب' : 'إضافة قريب جديد' }}</h3>
+      <h3>{{ editingRelative ? 'Edit Relative' : 'Add New Relative' }}</h3>
       <form (ngSubmit)="saveRelative()">
         <div class="form-group">
-          <label>المسن:</label>
+          <label>Elderly Person</label>
           <select [(ngModel)]="relativeForm.elderly_id" name="elderly_id" required>
-            <option value="0">اختر مسن</option>
+            <option value="0">Select Elderly Person</option>
             <option *ngFor="let e of elderly" [value]="e.elderly_id">{{ e.full_name }}</option>
           </select>
         </div>
         <div class="form-group">
-          <label>الاسم الكامل:</label>
+          <label>Full Name</label>
           <input type="text" [(ngModel)]="relativeForm.full_name" name="full_name" required>
         </div>
         <div class="form-group">
-          <label>صلة القرابة:</label>
+          <label>Relationship</label>
           <input type="text" [(ngModel)]="relativeForm.relation" name="relation" required>
         </div>
         <div class="form-group">
-          <label>رقم الهاتف:</label>
+          <label>Phone Number</label>
           <input type="text" [(ngModel)]="relativeForm.phone" name="phone" required>
         </div>
         <div class="form-group">
-          <label>البريد الإلكتروني:</label>
+          <label>Email</label>
           <input type="email" [(ngModel)]="relativeForm.email" name="email" required>
         </div>
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">حفظ</button>
-          <button type="button" class="btn btn-secondary" (click)="cancel()">إلغاء</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
         </div>
       </form>
     </div>
@@ -44,12 +44,12 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>المسن</th>
-          <th>الاسم الكامل</th>
-          <th>صلة القرابة</th>
-          <th>رقم الهاتف</th>
-          <th>البريد الإلكتروني</th>
-          <th>الإجراءات</th>
+          <th>Elderly Person</th>
+          <th>Full Name</th>
+          <th>Relationship</th>
+          <th>Phone Number</th>
+          <th>Email</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -61,12 +61,12 @@
           <td>{{ relative.phone }}</td>
           <td>{{ relative.email }}</td>
           <td>
-            <button class="btn btn-edit" (click)="openEditForm(relative)">تعديل</button>
-            <button class="btn btn-delete" (click)="deleteRelative(relative.relative_id!)">حذف</button>
+            <button class="btn btn-edit" (click)="openEditForm(relative)">Edit</button>
+            <button class="btn btn-delete" (click)="deleteRelative(relative.relative_id!)">Delete</button>
           </td>
         </tr>
         <tr *ngIf="relatives.length === 0">
-          <td colspan="7" class="no-data">لا توجد بيانات</td>
+          <td colspan="7" class="no-data">No data available</td>
         </tr>
       </tbody>
     </table>
