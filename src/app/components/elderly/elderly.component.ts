@@ -80,13 +80,10 @@ export class ElderlyComponent implements OnInit {
   saveElderly() {
     console.log('Current elderlyForm:', this.elderlyForm);
     
-    // Validate required fields
     if (!this.elderlyForm.full_name || !this.elderlyForm.birth_date || !this.elderlyForm.users_user_id || this.elderlyForm.users_user_id === 0) {
       alert('Please fill out all required fields');
       return;
     }
-
-    // Create a clean copy of the payload
     const elderlyData: Elderly = {
       full_name: this.elderlyForm.full_name.trim(),
       birth_date: this.elderlyForm.birth_date,

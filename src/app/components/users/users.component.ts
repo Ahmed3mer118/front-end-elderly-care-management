@@ -69,7 +69,6 @@ export class UsersComponent implements OnInit {
       password: this.userForm.password ? this.userForm.password.trim() : undefined
     };
 
-    // Remove password if it's undefined to avoid sending empty values
     if (!userData.password) {
       delete (userData as any).password;
     }

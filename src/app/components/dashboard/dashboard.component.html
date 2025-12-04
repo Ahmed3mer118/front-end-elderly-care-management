@@ -1,18 +1,14 @@
 <div class="flex min-h-screen bg-blue-50">
-
-  <!-- Mobile Overlay -->
   <div
     *ngIf="isSidebarOpen"
     class="fixed inset-0 bg-black/40 z-10 lg:hidden"
     (click)="closeSidebar()">
   </div>
 
-  <!-- ====== Sidebar (Left) ====== -->
   <div
     class="sidebar bg-white w-64 fixed left-0 top-0 h-full z-20 shadow-lg transition-transform duration-300 transform"
     [ngClass]="{ '-translate-x-full lg:translate-x-0': !isSidebarOpen, 'translate-x-0': isSidebarOpen }">
 
-    <!-- Header -->
     <div class="p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white">
       <div class="flex items-center space-x-3">
         <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-2 rounded-lg shadow-sm">
@@ -25,7 +21,6 @@
       </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="p-4 overflow-y-auto flex-1">
       <ul class="space-y-1">
 
@@ -108,10 +103,7 @@
     </div>
   </div>
 
-  <!-- ====== Main Area ====== -->
   <div class="flex flex-col flex-grow w-full transition-all duration-300 lg:ml-64">
-
-    <!-- Top Header -->
     <header class="bg-white shadow-sm p-4 border-b border-gray-100 sticky top-0 z-10">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-3">
@@ -122,8 +114,6 @@
         </div>
 
         <div class="flex items-center space-x-4">
-
-          <!-- Notifications -->
           <div class="relative">
             <button class="text-gray-600 hover:text-blue-600 p-2 rounded-full hover:bg-blue-50">
               <i class="fas fa-bell text-xl"></i>

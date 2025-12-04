@@ -15,6 +15,9 @@ import { HealthReportsComponent } from './components/health-reports/health-repor
 import { RelativesComponent } from './components/relatives/relatives.component';
 import { AssignmentsComponent } from './components/assignments/assignments.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { NotificationsComponent } from './components/notifications/notifications
     HealthReportsComponent,
     RelativesComponent,
     AssignmentsComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    LandingPageComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

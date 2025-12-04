@@ -1,0 +1,312 @@
+<!-- Hero Section -->
+<section id="hero" class="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 min-h-screen flex items-center justify-center overflow-hidden">
+    <img src="images/bg.jpg" alt="Elderly Care" class="absolute inset-0 w-full h-full object-cover">
+  
+  <div class="container mx-auto mt-40 px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="max-w-5xl mx-auto text-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+        Caring for Your Loved Ones
+        <span class="block text-blue-600 mt-2">With Compassion & Excellence</span>
+      </h1>
+      <p class="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Providing professional elderly care services with a warm, family-like atmosphere. 
+        Your peace of mind is our priority.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <button 
+          (click)="navigateToRegister()"
+          class="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          Get Started
+        </button>
+        <button 
+          (click)="scrollToSection('services')"
+          class="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-lg">
+          Our Services
+        </button>
+      </div>
+    </div>
+    <div class="mt-16 flex justify-center">
+      <div class="w-64 h-64 sm:w-80 sm:h-80 bg-blue-200 rounded-full opacity-20 blur-3xl"></div>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-20 bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Our Services
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Comprehensive care services designed to meet all the needs of our elderly residents
+      </p>
+    </div>
+    
+    <div *ngIf="loading" class="flex justify-center items-center py-20">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+    </div>
+
+    <div *ngIf="!loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div 
+        *ngFor="let service of services" 
+        class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 p-6 border border-gray-100">
+        <div class="text-5xl mb-4">{{ service.icon || '🏥' }}</div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">{{ service.name }}</h3>
+        <p class="text-gray-600 mb-4">{{ service.description }}</p>
+        <div *ngIf="service.category" class="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+          {{ service.category }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Us Section -->
+<section id="about" class="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-6xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            About Our Care Home
+          </h2>
+          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+            We are dedicated to providing exceptional care for the elderly, combining professional 
+            medical expertise with genuine compassion. Our team of experienced caregivers and 
+            healthcare professionals work tirelessly to ensure the comfort, safety, and well-being 
+            of every resident.
+          </p>
+          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+            With state-of-the-art facilities and a warm, welcoming environment, we create a 
+            home-like atmosphere where your loved ones can thrive and enjoy their golden years 
+            with dignity and respect.
+          </p>
+          <div class="grid grid-cols-2 gap-6 mt-8">
+            <div class="text-center">
+              <div class="text-4xl font-bold text-blue-600 mb-2">500+</div>
+              <div class="text-gray-600">Happy Residents</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-blue-600 mb-2">15+</div>
+              <div class="text-gray-600">Years Experience</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-blue-600 mb-2">100+</div>
+              <div class="text-gray-600">Expert Staff</div>
+            </div>
+            <div class="text-center">
+              <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+              <div class="text-gray-600">Care Available</div>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl p-8 shadow-2xl">
+            <img 
+              src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop" 
+              alt="Elderly care facility" 
+              class="rounded-xl w-full h-auto object-cover"
+              onerror="this.src='https://via.placeholder.com/800x600/3B82F6/FFFFFF?text=Elderly+Care'">
+          </div>
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-xl p-6 w-48 hidden lg:block">
+            <div class="text-3xl font-bold text-blue-600 mb-2">98%</div>
+            <div class="text-gray-600 text-sm">Satisfaction Rate</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-white">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        Why Choose Us
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        We stand out through our commitment to excellence and personalized care
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <div class="text-center p-6">
+        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Safe & Secure</h3>
+        <p class="text-gray-600">24/7 security and emergency response systems</p>
+      </div>
+      
+      <div class="text-center p-6">
+        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Compassionate Care</h3>
+        <p class="text-gray-600">Trained staff with genuine care and empathy</p>
+      </div>
+      
+      <div class="text-center p-6">
+        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">Modern Facilities</h3>
+        <p class="text-gray-600">State-of-the-art equipment and comfortable living spaces</p>
+      </div>
+      
+      <div class="text-center p-6">
+        <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-2">24/7 Support</h3>
+        <p class="text-gray-600">Round-the-clock medical and care assistance</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        What Families Say
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Hear from families who trust us with their loved ones
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold text-lg mr-4">
+            JS
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-900">John Smith</h4>
+            <p class="text-sm text-gray-600">Son of Resident</p>
+          </div>
+        </div>
+        <p class="text-gray-600 italic">
+          "The care and attention my mother receives here is exceptional. The staff truly cares, 
+          and I have complete peace of mind knowing she's in good hands."
+        </p>
+        <div class="flex text-yellow-400 mt-4">
+          <span>★★★★★</span>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold text-lg mr-4">
+            MJ
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-900">Maria Johnson</h4>
+            <p class="text-sm text-gray-600">Daughter of Resident</p>
+          </div>
+        </div>
+        <p class="text-gray-600 italic">
+          "Professional, compassionate, and always available. The facilities are modern and clean, 
+          and my father feels at home here. Highly recommended!"
+        </p>
+        <div class="flex text-yellow-400 mt-4">
+          <span>★★★★★</span>
+        </div>
+      </div>
+      
+      <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+          <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold text-lg mr-4">
+            RW
+          </div>
+          <div>
+            <h4 class="font-bold text-gray-900">Robert Williams</h4>
+            <p class="text-sm text-gray-600">Family Member</p>
+          </div>
+        </div>
+        <p class="text-gray-600 italic">
+          "Outstanding service! The medical care is top-notch, and the social activities keep 
+          my grandmother engaged and happy. Thank you for everything!"
+        </p>
+        <div class="flex text-yellow-400 mt-4">
+          <span>★★★★★</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section id="cta" class="py-20 bg-gradient-to-r from-blue-600 to-indigo-700">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
+        Ready to Get Started?
+      </h2>
+      <p class="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+        Join our community and experience the best in elderly care. 
+        Create an account today or contact us for more information.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <button 
+          (click)="navigateToRegister()"
+          class="px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-blue-50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+          Create Account
+        </button>
+        <button 
+          (click)="navigateToLogin()"
+          class="px-8 py-4 bg-transparent text-white border-2 border-white rounded-lg font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105">
+          Sign In
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-md">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <img src="images/logo.jpg" alt="Elderly Care" class="w-16 h-16 rounded-full">
+      </div>
+      <div class="hidden md:flex items-center space-x-8">
+        <a (click)="scrollToSection('hero')" class="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors">Home</a>
+        <a (click)="scrollToSection('services')" class="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors">Services</a>
+        <a (click)="scrollToSection('about')" class="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors">About</a>
+        <a (click)="scrollToSection('features')" class="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors">Features</a>
+        <a (click)="scrollToSection('testimonials')" class="text-gray-700 hover:text-blue-600 cursor-pointer transition-colors">Testimonials</a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button 
+          (click)="navigateToLogin()"
+          class="px-4 py-2 text-gray-700 hover:text-blue-600 transition-colors">
+          Sign In
+        </button>
+        <button 
+          (click)="navigateToRegister()"
+          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+          Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>

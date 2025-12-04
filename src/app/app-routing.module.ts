@@ -9,10 +9,17 @@ import { HealthReportsComponent } from './components/health-reports/health-repor
 import { RelativesComponent } from './components/relatives/relatives.component';
 import { AssignmentsComponent } from './components/assignments/assignments.component';
 import { NotificationsComponent } from './components/notifications/notifications.component';
+import { LandingPageComponent } from './components/landing-page/landing-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/landing', pathMatch: 'full' },
+  { path: 'landing', component: LandingPageComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   {
-    path: '',
+    path: 'dashboard',
     component: DashboardComponent,
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
